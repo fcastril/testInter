@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace testInter.Repo
+namespace testInter.Service
 {
     class Program
     {

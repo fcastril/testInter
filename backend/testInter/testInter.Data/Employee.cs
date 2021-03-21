@@ -1,8 +1,7 @@
 ﻿namespace testInter.Data
 {
-    public class Employee
+    public class Employee  : BaseEntity
     {
-        public int idEmployee { get; set; }
         public string DocumentId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
