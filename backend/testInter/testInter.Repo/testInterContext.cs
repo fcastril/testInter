@@ -5,7 +5,7 @@ namespace testInter.Repo
 {
     public class testInterContext : DbContext
     {
-        public testInterContext(DbContextOptions<testInterContext> options)
+        public testInterContext(DbContextOptions<testInterContext> options) : base(options)
         {
 
         }
@@ -16,5 +16,6 @@ namespace testInter.Repo
             new EmployeeMap(modelBuilder.Entity<Employee>());
 
         }
+       
     }
 }
