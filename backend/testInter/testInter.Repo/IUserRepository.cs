@@ -8,6 +8,7 @@ namespace testInter.Repo
         IEnumerable<User> GetAll();
         User Get(int id);
         User Get(string username, string password);
+        User Get(string username);
         void Insert(User reg);
         void Update(User reg);
         void Delete(User reg);

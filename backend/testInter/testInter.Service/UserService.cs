@@ -22,6 +22,10 @@ namespace testInter.Service
         {
             return userRepository.Get(id);
         }
+        public User GetUser(string Email)
+        {
+            return userRepository.Get(Email);
+        }
         public void InsertUser(User user)
         {
             userRepository.Insert(user);

@@ -40,6 +40,7 @@ namespace testInter.Repo
             {
                 throw new ArgumentNullException("reg");
             }
+            context.Update(reg);
             context.SaveChanges();
         }
         public void Delete(T reg)
