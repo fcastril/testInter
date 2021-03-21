@@ -7,8 +7,8 @@ namespace testInter.Service
     public class UserService : IUserService
     {
 
-        private IRepository<User> userRepository;
-        public UserService(IRepository<User> userRepository)
+        private IUserRepository userRepository;
+        public UserService(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
 
@@ -35,6 +35,11 @@ namespace testInter.Service
             User user = GetUser(id);
             userRepository.Remove(user);
             userRepository.SaveChanges();
+        }
+
+        public User GetUser(string Email, string Password)
+        {
+            return userRepository.Get(Email, Password);
         }
     }
 }

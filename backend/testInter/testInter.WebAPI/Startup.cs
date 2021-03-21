@@ -1,13 +1,15 @@
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 using testInter.Repo;
 using testInter.Service;
-using Microsoft.OpenApi.Models;
-using System;
 
 namespace testInter.WebAPI
 {
@@ -23,14 +25,48 @@ namespace testInter.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+
             services.AddControllers();
+
+            // Dependencias
+
             services.AddDbContext<testInterContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
 
 
             AddSwagger(services);
+
+
+            // Configuration JWT Token
+            var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("SecretKey"));
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
+            // CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
         }
 
         private void AddSwagger(IServiceCollection services)
@@ -46,8 +82,37 @@ namespace testInter.WebAPI
                     Description = "InterTest API",
                     Contact = new OpenApiContact
                     {
-                        Name = "Fabian Mauricio Castrill�n Franco",
+                        Name = "Fabian Mauricio Castrillón Franco",
                         Email = "fcastril@gmail.com"
+                    }
+                });
+
+                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "Copia y pega el Token en el campo 'Value:' as�: Bearer {Token JWT}.",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "bearer",
+                    BearerFormat = "Bearer {token}",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                   {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
                     }
                 });
             });
@@ -61,6 +126,10 @@ namespace testInter.WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            // CORS
+            app.UseCors("CorsPolicy");
+
+            app.UseAuthentication();
             app.UseHttpsRedirection();
 
             app.UseSwagger();

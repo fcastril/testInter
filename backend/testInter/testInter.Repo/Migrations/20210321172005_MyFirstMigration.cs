@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using testInter.Repo.Security;
 
 namespace testInter.Repo.Migrations
 {
@@ -36,6 +37,16 @@ namespace testInter.Repo.Migrations
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "UserName","Email", "Password" },
+                values: new object[,]
+                {
+                    {Crypto.Encrypt("Administrador del Sistema"),Crypto.Encrypt("admon@correo.com"),Crypto.Encrypt("1234") }
+                }
+
+                ) ;
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

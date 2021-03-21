@@ -7,6 +7,7 @@ namespace testInter.Service
     {
         IEnumerable<User> GetUsers();
         User GetUser(int id);
+        User GetUser(string Email, string Password);
         void InsertUser(User user);
         void UpdateUser(User user);
         void DeleteUser(int id);
