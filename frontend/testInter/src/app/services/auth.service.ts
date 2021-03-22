@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserResponseModel } from '../models/userResponse.model';
-import { environment } from '../../environments/environment.prod';
 import { map } from 'rxjs/operators';
+import { CommonService } from './common.service';
+import { ResponseModel } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +12,27 @@ export class AuthService {
 
   userToken: string;
 
-  constructor(private http: HttpClient, private environment) {
+  constructor(private http: HttpClient, private common: CommonService) {
     this.getToken();
   }
   
   login( user: UserResponseModel ) {
-
     const authData = {
       ...user,
       returnSecureToken: true
     };
 
+
     return this.http.post(
-      `${ this.environment.url }/Token`,
-      authData
-    ).pipe(
-      map( resp => {
-        this.setToken( resp['idToken'] );
-        return resp;
-      })
-    );
+      `${ this.common.getUrl() }/Token`,
+      authData);
+    // ).pipe(
+    //   map( (resp: ResponseModel) => {
+    //     console.log('AUTH',resp);
+    //     this.setToken( resp.result['token'] );
+    //     return resp;
+    //   })
+    // );
 
   }
   logout() {
@@ -48,7 +50,7 @@ export class AuthService {
 
   }
   
-  private setToken( idToken: string ) {
+  setToken( idToken: string ) {
 
     this.userToken = idToken;
     localStorage.setItem('token', idToken);

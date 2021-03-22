@@ -16,9 +16,9 @@
                     <span class="focus-input100"></span>
                 </div>
 
-                <span *ngIf="f.submitted && f.controls['password'].errors" class="text-danger animated fadeIn">Al menos 6 letras</span>
+                <span *ngIf="f.submitted && f.controls['password'].errors" class="text-danger animated fadeIn">Al menos 1 letras</span>
                 <div class="wrap-input100 m-b-16" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" [(ngModel)]="user.password" required minlength="6" placeholder="Password">
+                    <input class="input100" type="password" name="password" [(ngModel)]="user.password" required minlength="1" placeholder="Password">
                     <span class="focus-input100"></span>
                 </div>
 
