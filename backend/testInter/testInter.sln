@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testInter.Data", "testInter.Data\testInter.Data.csproj", "{12618EDA-1BD6-4D24-80D2-80CDF80ABF32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testInter.Data", "testInter.Data\testInter.Data.csproj", "{12618EDA-1BD6-4D24-80D2-80CDF80ABF32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testInter.Repo", "testInter.Repo\testInter.Repo.csproj", "{D02B6F1B-8963-4546-A8D6-796AB382FC7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testInter.Repo", "testInter.Repo\testInter.Repo.csproj", "{D02B6F1B-8963-4546-A8D6-796AB382FC7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testInter.Service", "testInter.Service\testInter.Service.csproj", "{E3D4FF23-CA4F-428B-A2B3-B62A29DD0114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testInter.Service", "testInter.Service\testInter.Service.csproj", "{E3D4FF23-CA4F-428B-A2B3-B62A29DD0114}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testInter.WebAPI", "testInter.WebAPI\testInter.WebAPI.csproj", "{36C15A2B-66DD-4888-BFF3-3DC6501F0180}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testInter.WebAPI", "testInter.WebAPI\testInter.WebAPI.csproj", "{36C15A2B-66DD-4888-BFF3-3DC6501F0180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testInter.test", "testInter.test\testInter.test.csproj", "{144EF09D-2D6D-4784-A775-46C446BE14CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{36C15A2B-66DD-4888-BFF3-3DC6501F0180}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36C15A2B-66DD-4888-BFF3-3DC6501F0180}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36C15A2B-66DD-4888-BFF3-3DC6501F0180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{144EF09D-2D6D-4784-A775-46C446BE14CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{144EF09D-2D6D-4784-A775-46C446BE14CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{144EF09D-2D6D-4784-A775-46C446BE14CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{144EF09D-2D6D-4784-A775-46C446BE14CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
