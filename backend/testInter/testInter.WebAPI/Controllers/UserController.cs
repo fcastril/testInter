@@ -44,8 +44,15 @@ namespace testInter.WebAPI.Controllers
         {
             _userService.InsertUser(user);
             user = _userService.GetUser(Repo.Security.Crypto.Decrypt(user.Email));
+            ResponseEntity responseEntity = new ResponseEntity()
+            {
+                Response = true,
+                Message = "Ok",
+                Result = user,
 
-            return Ok(user);
+            };
+
+            return Ok(responseEntity);
         }
         // PUT api/<UserController>/5
         [HttpPut("{id}")]

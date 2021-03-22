@@ -1,0 +1,37 @@
+<app-navbar></app-navbar>
+<br>
+<div id="Empleados" class="page">
+    <h1 class="page-header">
+        <a routerLink="/employee-crud/0" id="crear" class="btn btn-primary col-sm-1 float-right" title="Crear Empleado" style="font-size:0.5em"><i class="fas fa-plus-circle"></i></a>
+        <em class="fas fa-user-friends"></em>
+        <span> Empleados </span>
+    </h1>
+
+
+    <table id="dtIndex" class="table table-bordered table-hover table-responsive table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th width="20%">Acciones</th>
+                <th>Id</th>
+                <th>Documento</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Cargo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of regs;let idx = index">
+                <th>
+                    <button type="button" class="btn btn-success ml-1" [routerLink]="['/employee-crud',item.id]"><i class="fas fa-pencil-alt"></i></button>
+                    <button type="button" class="btn btn-danger ml-1" (click)='delete(item.id,idx)'><i class="fas fa-trash-alt"></i></button>
+
+                </th>
+                <th>{{ item.id }}</th>
+                <th>{{ item.documentId }}</th>
+                <th>{{ item.firstName }}</th>
+                <th>{{ item.lastName }}</th>
+                <th>{{ item.position }}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

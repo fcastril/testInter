@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
 
   login( form: NgForm ) {
 
-    debugger;
     if (  form.invalid ) { return; }
 
 

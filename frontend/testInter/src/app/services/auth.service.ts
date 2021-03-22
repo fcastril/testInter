@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserResponseModel } from '../models/userResponse.model';
 import { map } from 'rxjs/operators';
 import { CommonService } from './common.service';
 import { ResponseModel } from '../models/response.model';
+import { UserModel } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -81,4 +82,25 @@ export class AuthService {
 
 
   }
+
+  
+  newUser( user: UserModel ) {
+
+    const userData = {
+      ...user,
+      id: 0
+    };
+    
+    return this.http.post(
+      `${ this.common.getUrl() }/user`,
+      userData
+    );
+
+  }
+
+  getHeaders(){
+    return new HttpHeaders({Authorization: `Bearer ${this.getToken()}`});
+
+  }
+
 }
