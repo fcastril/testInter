@@ -55,6 +55,7 @@ namespace testInter.test
             #region Arrange
 
             int id = 1;
+            int idNotFound = 3;
             User User = new User { Id = 1, Email = "login1@dominio.com", Password = "Abcd1234" };
 
             var mockUsuarios = new Mock<IUserService>();
@@ -65,14 +66,16 @@ namespace testInter.test
 
 
             #region Act
-            var response = userController.GetUser(id);
+            IActionResult responseOK = userController.GetUser(id);
+            IActionResult responseNotFound = userController.GetUser(idNotFound);
 
             #endregion
 
             #region Assert
             // The 'Response' is of type OkResult and returns an Object (OkObjectResult)..
             //The Object returned by the OkResult is of type IEnumerable<Country>.
-            Assert.IsInstanceOfType((response as OkObjectResult).Value, typeof(User));
+            Assert.AreEqual(((User)(responseOK as OkObjectResult).Value).Id,id);
+            Assert.AreNotEqual(((User)(responseOK as OkObjectResult).Value).Id, idNotFound);
             #endregion
         }
     }
