@@ -77,6 +77,64 @@ namespace testInter.test
             #endregion
         }
         [TestMethod]
+        public void PutUser_ReturnOK()
+        {
+            #region Arrange
+            int id = 4;
+            int idBad = 5;
+            User User = new User { Id = 4, Email = Crypto.Encrypt("login4@dominio.com"), Password = Crypto.Encrypt("Abcd1234") };
+
+
+            var mockUsuarios = new Mock<IUserService>();
+            mockUsuarios.Setup(sp => sp.UpdateUser(User)).Verifiable();
+
+            var userController = new UserController(mockUsuarios.Object);
+            #endregion
+
+
+            #region Act
+            IActionResult actionResult = userController.PutUser(id,User);
+            IActionResult actionResultBadRequest = userController.PutUser(idBad, User);
+            #endregion
+
+            #region Assert
+            // The 'Response' is of type OkResult and returns an Object (OkObjectResult)..
+            //The Object returned by the OkResult is of type IEnumerable<Country>.
+            Assert.IsInstanceOfType(actionResult, typeof(OkObjectResult));
+            Assert.IsInstanceOfType(actionResultBadRequest, typeof(BadRequestResult));
+            #endregion
+        }
+        [TestMethod]
+        public void DeleteUser_ReturnOK()
+        {
+            #region Arrange
+
+            int id = 1;
+            int idNotFound = 3;
+            User User = new User { Id = 1, Email = "login1@dominio.com", Password = "Abcd1234" };
+
+            var mockUsuarios = new Mock<IUserService>();
+            mockUsuarios.Setup(sp => sp.GetUser(id)).Returns(User);
+
+            mockUsuarios.Setup(sp => sp.DeleteUser(id)).Verifiable();
+
+            var userController = new UserController(mockUsuarios.Object);
+            #endregion
+
+
+            #region Act
+            IActionResult actionResult = userController.DeleteUser(id);
+            IActionResult actionResultNot = userController.DeleteUser(idNotFound);
+            #endregion
+
+            #region Assert
+            // The 'Response' is of type OkResult and returns an Object (OkObjectResult)..
+            //The Object returned by the OkResult is of type IEnumerable<Country>.
+            Assert.IsInstanceOfType(actionResult, typeof(OkObjectResult));
+            Assert.IsInstanceOfType(actionResultNot, typeof(NotFoundResult));
+            #endregion
+        }
+        [TestMethod]
         public void GetUser_ReturnOK ()
         {
             #region Arrange
