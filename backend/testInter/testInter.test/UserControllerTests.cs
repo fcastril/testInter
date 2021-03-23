@@ -1,21 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System.Collections.Generic;
 using testInter.Data;
-using testInter.Service;
-using testInter.Repo;
-using testInter.WebAPI.Controllers;
-using System;
-using System.Net.Http;
-using Moq;
-using Microsoft.EntityFrameworkCore;
-using System.Web.Http;
 using testInter.Repo.Security;
+using testInter.Service;
+using testInter.WebAPI.Controllers;
 
 namespace testInter.test
 {
 
-    
+
     [TestClass]
     public class UserControllerTests
     {
@@ -55,7 +50,7 @@ namespace testInter.test
         public void PostUser_ReturnOK()
         {
             #region Arrange
-            
+
             User User = new User { Id = 4, Email = Crypto.Encrypt("login4@dominio.com"), Password = Crypto.Encrypt("Abcd1234") };
 
 
@@ -93,7 +88,7 @@ namespace testInter.test
 
 
             #region Act
-            IActionResult actionResult = userController.PutUser(id,User);
+            IActionResult actionResult = userController.PutUser(id, User);
             IActionResult actionResultBadRequest = userController.PutUser(idBad, User);
             #endregion
 
@@ -135,7 +130,7 @@ namespace testInter.test
             #endregion
         }
         [TestMethod]
-        public void GetUser_ReturnOK ()
+        public void GetUser_ReturnOK()
         {
             #region Arrange
 
