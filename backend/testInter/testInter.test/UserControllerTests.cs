@@ -9,6 +9,8 @@ using System;
 using System.Net.Http;
 using Moq;
 using Microsoft.EntityFrameworkCore;
+using System.Web.Http;
+using testInter.Repo.Security;
 
 namespace testInter.test
 {
@@ -50,7 +52,32 @@ namespace testInter.test
             #endregion
         }
         [TestMethod]
-        public void GetUser_ReturnOK()
+        public void PostUser_ReturnOK()
+        {
+            #region Arrange
+            
+            User User = new User { Id = 4, Email = Crypto.Encrypt("login4@dominio.com"), Password = Crypto.Encrypt("Abcd1234") };
+
+
+            var mockUsuarios = new Mock<IUserService>();
+            mockUsuarios.Setup(sp => sp.InsertUser(User)).Verifiable();
+
+            var userController = new UserController(mockUsuarios.Object);
+            #endregion
+
+
+            #region Act
+            IActionResult actionResult = userController.PostUser(User);
+            #endregion
+
+            #region Assert
+            // The 'Response' is of type OkResult and returns an Object (OkObjectResult)..
+            //The Object returned by the OkResult is of type IEnumerable<Country>.
+            Assert.IsInstanceOfType(actionResult, typeof(OkObjectResult));
+            #endregion
+        }
+        [TestMethod]
+        public void GetUser_ReturnOK ()
         {
             #region Arrange
 
@@ -74,7 +101,7 @@ namespace testInter.test
             #region Assert
             // The 'Response' is of type OkResult and returns an Object (OkObjectResult)..
             //The Object returned by the OkResult is of type IEnumerable<Country>.
-            Assert.AreEqual(((User)(responseOK as OkObjectResult).Value).Id,id);
+            Assert.AreEqual(((User)(responseOK as OkObjectResult).Value).Id, id);
             Assert.AreNotEqual(((User)(responseOK as OkObjectResult).Value).Id, idNotFound);
             #endregion
         }
