@@ -24,3 +24,19 @@ Mediador de comunicación entre FrontEnd y BackEnd.
 Patrones Implementados.
 Pruebas Unitarias.
 Clean Code.
+
+## Solución de la Prueba 
+
+La **Arquitectura** utilizada es ONION, para el BACKEND. Se implementó Swagger para la documentación así como manejo de JWT para la generación de seguridad de acceso al servicio WEB- API Restful.
+
+Para el manejo de base de datos, se utilizo first code, se hace necesario correr el comando **update-database** en **Package Manager Console** este procedimiento crea la base de datos y como usuario por defecto.
+
+La Base de datos es LOCAL -  Necesario tener instalado SQL Server Express.
+
+Email: admon@correo.com
+Password: 1234
+
+Estos datos se hacen necesarios para la autenticación, los datos de la tabla **usuarios** de igual forma se encuentran codificados para dificultar el acceso a dicha información.
+
+Para el **FrontEnd** se realizón en angular, para organizar el direccionamiento de la WEBAPI se debe ingresar en el servicio **COMMON** y cambiar allí la ruta de la API.
+
